@@ -1,4 +1,4 @@
-# Show Biz II - TV Production Management App
+# Show Bizz - TV Production Management App
 
 Welcome to the Show Biz II repository! This project is an advanced web application developed for the WEB524 course assignment, focusing on enhancing TV production management with rich text support and media item uploads.
 
