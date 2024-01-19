@@ -36,3 +36,8 @@ The project follows a structured approach outlined in the assignment. Key compon
 ## 📜 Academic Integrity
 
 This repository is a testament to academic achievement and adherence to integrity. It was created for educational purposes, showcasing proficiency in web development concepts and practices. It is essential to maintain academic integrity and not engage in any form of plagiarism or cheating. Feel free to explore the codebase and run the application to experience the functionalities firsthand.
+
+
+## 📜 How to Run
+
+You will need Visual Studio 2022 Version, it will not run on Previous Versions, also you need to have installed Visual Studio inbuilt Extensions during install like C# Desktop Development and Azure ,to host it you need to deploy your own webapp on Azure and then Host using Visual Studio by entering the key.
