@@ -1,0 +1,194 @@
+﻿@model MGP2237A5.Models.ActorWithShowInfoViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details for @Model.Name</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlternateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlternateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="Actor Image" style="max-height: 100px; max-width: 100px;" />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Executive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Executive)
+        </dd>
+
+        <hr />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shows)
+            <span class="badge rounded-pill bg-secondary">
+                @Model.Shows.Count()
+            </span>
+        </dt>
+
+        @foreach (var name in Model.Shows)
+        {
+            <dd>
+                @Html.DisplayFor(model => name.Name)
+            </dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Biography))
+        {
+            <hr />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Biography)
+            </dt>
+
+            <dd>
+                <div class="panel panel-default panel-body">
+                    @Html.Raw(Model.Biography)
+                </div>
+            </dd>
+        }
+        @if (Model.Photos.Count() != 0)
+        {
+            <hr />
+            <dt>
+                Photos
+            </dt>
+            <dd>
+                @foreach (var item in Model.Photos)
+                {
+                    <div class="col-md-4 col-sm-5 col-xs-10">
+
+                        <img src="@Url.Action("ShowMediaItem", "Actor", new { id = item.Id })" alt="@item.Caption" title="@item.Caption" style="max-height: 200px; max-width: 200px;">
+                        <br><small>@item.Caption</small>
+                    </div>
+                }
+            </dd>
+        }
+
+        @if (Model.Documents.Count() != 0)
+        {
+            <hr />
+            <dt>
+                Documents
+            </dt>
+            <dd>
+                @foreach (var item in Model.Documents)
+                {
+                    <div class="col-md-4 col-sm-5 col-xs-10">
+
+                        <a href="@Url.Action("MediaItemDownload", "Actor", new { id = item.Id })">
+                            <img src="../../icon-pdf.png" alt="Document Icon" style="max-height: 100px; max-width: 100px;">
+                            <br><small>@item.Caption</small>
+                        </a>
+                    </div>
+                }
+            </dd>
+        }
+
+        @if (Model.AudioClips.Count() != 0)
+        {
+            <hr />
+            <dt>
+                Audio Clips
+            </dt>
+            <dd>
+                @foreach (var item in Model.AudioClips)
+                {
+                    <div class="col-md-4 col-sm-5 col-xs-10">
+
+                        <audio controls>
+                            <source src="@Url.Action("ShowMediaItem", "Actor", new { id = item.Id })" type="audio/mp3">
+                            Your browser does not support the audio tag.
+                        </audio>
+                        <br><small>@item.Caption</small>
+                    </div>
+                }
+            </dd>
+        }
+
+        @if (Model.VideoClips.Count() != 0)
+        {
+            <hr />
+            <dt>
+                Video Clips
+            </dt>
+            <dd>
+                @foreach (var item in Model.VideoClips)
+                {
+                    <div class="col-md-4 col-sm-5 col-xs-10">
+                        <video controls>
+                            <source src="@Url.Action("ShowMediaItem", "Actor", new { id = item.Id })" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <br><small>@item.Caption</small>
+                    </div>
+                }
+            </dd>
+        }
+
+        <hr>
+
+    </dl>
+</div>
+<p>
+    @using System.Security.Claims;
+    @if ((User as ClaimsPrincipal).HasClaim(ClaimTypes.Role, "Coordinator"))
+    {
+        @Html.ActionLink("Add Media Item", "AddContent", "Actors", new { id = Model.Id })
+    }
+    |
+
+    @using System.Security.Claims;
+    @if ((User as ClaimsPrincipal).HasClaim(ClaimTypes.Role, "Coordinator"))
+    {
+        @Html.ActionLink("Add New Show", "AddShow", "Actors", new { id = Model.Id })
+    }
+
+    |
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

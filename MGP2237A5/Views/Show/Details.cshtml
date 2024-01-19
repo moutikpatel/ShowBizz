@@ -1,0 +1,112 @@
+﻿@model MGP2237A5.Models.ShowWithInfoViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Name</h2>
+    
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="Actor Image" style="max-height: 100px; max-width: 100px;" />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coordinator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coordinator)
+        </dd>
+
+        <hr />
+
+        <dt>
+            Cast
+            <span class="badge rounded-pill bg-secondary">
+                @Model.Actors.Count()
+            </span>
+        </dt>
+
+        @foreach (var name in Model.Actors)
+        {
+            <dd>
+                @Html.DisplayFor(model => name.Name)
+            </dd>
+        }
+
+        <dd>
+            @if (!string.IsNullOrWhiteSpace(Model.Premise))
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.Premise)
+            </dt>
+            <div class="well">
+                @Html.Raw(Model.Premise)
+            </div>
+        }
+        else
+        {
+            <em> </em>
+        }
+            </dd>
+
+            <hr />
+
+            <dt>
+                Episodes
+                <span class="badge rounded-pill bg-secondary">
+                    @Model.Episodes.Count()
+                </span>
+            </dt>
+
+            @foreach (var name in Model.Episodes)
+            {
+                <dd>
+                    @Html.DisplayFor(model => name.Name)
+                </dd>
+            }
+        </dl>
+</div>
+<p>
+    @using System.Security.Claims;
+    @if ((User as ClaimsPrincipal).HasClaim(ClaimTypes.Role, "Clerk"))
+    {
+        @Html.ActionLink("Add New Episodes", "AddEpisode", "Episodes", new { id = Model.Id })
+    }
+    | @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,113 @@
+﻿@model MGP2237A5.Models.EpisodeWithShowNameViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details for @Model.Name</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Show)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Show.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeasonNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeasonNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="Actor Image" style="max-height: 100px; max-width: 100px;" />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clerk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clerk)
+        </dd>
+
+        @if (!string.IsNullOrEmpty(Model.Premise))
+        {
+            <hr />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Premise)
+            </dt>
+
+            <dd>
+                <div class="panel panel-default panel-body">
+                    @Html.Raw(Model.Premise)
+                </div>
+            </dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.VideoContentType))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.VideoUrl)
+            </dt>
+
+            <dd>
+                <video controls>
+                    <source src="@Url.Action("ShowVideo", "Episode", new { id = Model.Id })" type="@Model.VideoContentType">
+                    Your browser does not support the video tag.
+                </video>
+            </dd>
+        }
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
